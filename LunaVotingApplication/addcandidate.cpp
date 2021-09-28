@@ -85,7 +85,7 @@ void addCandidate() {
     //
     //getting candidate id
     firstThreeLetterParty = candidateParty.substr(0, 3);
-    ID = 
+    ID = 0;
     candidateID = firstThreeLetterParty + "0" + to_string(ID);
 
     //TO-DO: save to text file(Albert)
