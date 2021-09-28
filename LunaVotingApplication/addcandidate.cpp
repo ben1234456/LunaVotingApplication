@@ -107,9 +107,12 @@ int main()
 {
     int ID = 0;//a variable for candidate ID
     int selection = 0; //a variable to store the user selection
+    cout << "Welcome to Luna Voting Application" << endl;
     while (selection != 3) {
         //print out the menu details
-        cout << "Welcome to Luna Voting Application" << endl;
+        if (ID != 0) {
+            cout << endl << "Please enter again" << endl;
+        }
         cout << "[1] Add Candidate" << endl;
         cout << "[2] View Candidates" << endl;
         cout << "[3] Exit" << endl;
