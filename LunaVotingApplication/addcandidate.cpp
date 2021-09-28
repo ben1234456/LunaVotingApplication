@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void addCandidate() {
+void addCandidate(int &ID) {
     //All candidate information
     string candidateID = ""; // a variable to store candidate's ID
     string candidateName = ""; // a variable to store candidate's name
@@ -81,12 +81,14 @@ void addCandidate() {
     //assign the division to candidate's division
     candidateDivsion = divisionInput;
 
-    //TO-DO: Softcode the id (Vendy)
-    //
     //getting candidate id
     firstThreeLetterParty = candidateParty.substr(0, 3);
-    ID = 0;
-    candidateID = firstThreeLetterParty + "0" + to_string(ID);
+    string string_ID;
+    ID++;
+    if (ID <= 9) {
+        string_ID = "0" + to_string(ID);
+    } else { string_ID = to_string(ID);}
+    candidateID = firstThreeLetterParty + string_ID;
 
     //TO-DO: save to text file(Albert)
 
@@ -97,14 +99,13 @@ void addCandidate() {
     cout << "Candidate Party: " << candidateParty << endl;
     cout << "Candidate Division: " << candidateDivsion << endl;
     cout << "Candidate Vote Count: " << candidateVoteCount << endl;
-
 }
 
 int main()
 {
-    int selection = 0; //a variable to store the user selection
     int ID = 0;//a variable for candidate ID
-
+    int selection = 0; //a variable to store the user selection
+    while (selection != 3) {
     //print out the menu details
     cout << "Welcome to Luna Voting Application" << endl;
     cout << "[1] Add Candidate" << endl;
@@ -132,25 +133,26 @@ int main()
     //1 = Add Candidate
     //2 = View Candidates
     //3 = Exit
+    
+        switch (selection) {
+            //Add Candidate
+        case 1:
+            addCandidate(ID);
+            break;
 
-    switch (selection) {
-        //Add Candidate
-    case 1:
-        addCandidate();
-        break;
+            //View Candidates
+        case 2:
+            cout << "TO-DO";
+            break;
 
-        //View Candidates
-    case 2:
-        cout << "TO-DO";
-        break;
+            //Exit
+        case 3:
+            cout << "Thanks for using Luna Voting Application! Have a great day!";
+            break;
 
-        //Exit
-    case 3:
-        cout << "Thanks for using Luna Voting Application! Have a great day!";
-        break;
-
-    default:
-        cout << "Something went wrong! Please Try Again";
+        default:
+            cout << "Something went wrong! Please Try Again";
+        }
     }
 
     return 0;
