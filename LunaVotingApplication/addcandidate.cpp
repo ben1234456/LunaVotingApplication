@@ -1,6 +1,6 @@
 // addcandidate.cpp : A Voting Application that allows the user to add and view candidates
 // Created at: 28/7/2021
-
+// asdasda
 
 #include <string> 
 #include <iostream>
