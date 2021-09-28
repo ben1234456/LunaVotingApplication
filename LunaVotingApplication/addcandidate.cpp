@@ -81,6 +81,8 @@ void addCandidate(int &ID) {
     //assign the division to candidate's division
     candidateDivsion = divisionInput;
 
+    //TO-DO: Softcode the id (Vendy)
+    //
     //getting candidate id
     firstThreeLetterParty = candidateParty.substr(0, 3);
     string string_ID;
@@ -105,34 +107,37 @@ int main()
 {
     int ID = 0;//a variable for candidate ID
     int selection = 0; //a variable to store the user selection
-    while (selection != 3) {
-    //print out the menu details
     cout << "Welcome to Luna Voting Application" << endl;
-    cout << "[1] Add Candidate" << endl;
-    cout << "[2] View Candidates" << endl;
-    cout << "[3] Exit" << endl;
-    cout << "Please select one of the numbers:" << endl;
+    while (selection != 3) {
+        //print out the menu details
+        if (ID != 0) {
+            cout << endl << "Please enter again" << endl;
+        }
+        cout << "[1] Add Candidate" << endl;
+        cout << "[2] View Candidates" << endl;
+        cout << "[3] Exit" << endl;
+        cout << "Please select one of the numbers:" << endl;
 
-    //get the user input
-    cin >> selection;
-
-    //perform validation, while the selection is not 1, 2, or 3, the program will display an error message again and prompt the user to enter the selection again
-    while (selection != 1 && selection != 2 && selection != 3) {
-        //clear failbit
-        cin.clear();
-
-        // remove characters that are still in the input buffer (until next end of line)
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-        cout << "Invalid number, please enter a valid number (1, 2, or 3)" << endl;
-
+        //get the user input
         cin >> selection;
-    }
 
-    //Menu
-    //1 = Add Candidate
-    //2 = View Candidates
-    //3 = Exit
+        //perform validation, while the selection is not 1, 2, or 3, the program will display an error message again and prompt the user to enter the selection again
+        while (selection != 1 && selection != 2 && selection != 3) {
+            //clear failbit
+            cin.clear();
+
+            // remove characters that are still in the input buffer (until next end of line)
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            cout << "Invalid number, please enter a valid number (1, 2, or 3)" << endl;
+
+            cin >> selection;
+        }
+
+        //Menu
+        //1 = Add Candidate
+        //2 = View Candidates
+        //3 = Exit
     
         switch (selection) {
             //Add Candidate
@@ -155,7 +160,6 @@ int main()
         }
     }
 
-    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
