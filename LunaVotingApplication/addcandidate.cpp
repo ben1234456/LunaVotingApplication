@@ -81,7 +81,8 @@ void addCandidate() {
     //assign the division to candidate's division
     candidateDivsion = divisionInput;
 
-    //TO-DO: Softcode the id
+    //TO-DO: Softcode the id (Vendy)
+    // 
     //getting candidate id
     firstThreeLetterParty = candidateParty.substr(0, 3);
     candidateID = firstThreeLetterParty + "00";
