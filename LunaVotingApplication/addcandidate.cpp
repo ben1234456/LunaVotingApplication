@@ -1,6 +1,6 @@
 // addcandidate.cpp : A Voting Application that allows the user to add and view candidates
 // Created at: 28/7/2021
-// asdasda
+// hello world
 
 #include <string> 
 #include <iostream>
@@ -31,7 +31,7 @@ void addCandidate() {
     //get candidate's name
     cin >> candidateName;
 
-    //TO-DO Validate is duplicate or not
+    //TO-DO Validate is duplicate or not=
 
     //print out parties
     cout << "Please enter candidate's party according to the selection below" << endl;
@@ -81,12 +81,14 @@ void addCandidate() {
     //assign the division to candidate's division
     candidateDivsion = divisionInput;
 
-    //TO-DO: Softcode the id
+    //TO-DO: Softcode the id (Vendy)
+    //
     //getting candidate id
     firstThreeLetterParty = candidateParty.substr(0, 3);
-    candidateID = firstThreeLetterParty + "00";
+    ID = 0;
+    candidateID = firstThreeLetterParty + "0" + to_string(ID);
 
-    //TO-DO: save to text file
+    //TO-DO: save to text file(Albert)
 
     //print out candidate infromation
     cout << "Candidate Information:" << endl;
@@ -101,6 +103,7 @@ void addCandidate() {
 int main()
 {
     int selection = 0; //a variable to store the user selection
+    int ID = 0;//a variable for candidate ID
 
     //print out the menu details
     cout << "Welcome to Luna Voting Application" << endl;
