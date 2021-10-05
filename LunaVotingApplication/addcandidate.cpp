@@ -4,6 +4,7 @@
 
 #include <string> 
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -31,7 +32,35 @@ void addCandidate(int &ID) {
     //get candidate's name
     cin >> candidateName;
 
-    //TO-DO Validate is duplicate or not=
+    // Create text file (Albert)
+    fstream myFile;
+    myFile.open("candidate.txt", ios::app);
+    if (myFile.is_open())
+    {
+        myFile.close();
+    }
+
+    // Perform validation to check whether the user has entered a same candidate. (Albert)         
+    string newLine = "Candidate Name: " + candidateName; // A variable that stores the string which matches with the format of the line of text in the text file.
+    string line; // A variable that stores each line of text of the text file for each loop.
+    //Open and reopen the file to read the file again for a certain time to check whether the user still enters a repeated candidate's name.
+    for (int counter = 1; counter < 500; counter++)
+    {
+        myFile.open("candidate.txt", ios::in); // Open the text file in order to read the text file.
+        while (myFile.is_open()) // Check whether the text file is opened successfully.
+        {
+            while (getline(myFile, line)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
+            {
+                while (line == newLine) // To search whether the string that contains the input name is the same as any line of text in the text file.
+                {
+                    cout << "Candidate already exists. Please enter a new candidate name" << endl;
+                    cin >> candidateName;
+                    newLine = "Candidate Name: " + candidateName; // Update the string that stored in variable newLine after the user types in different name.
+                }
+            }
+            myFile.close(); // After finished to read the file, close the file.
+        }
+    }
 
     //print out parties
     cout << "Please enter candidate's party according to the selection below" << endl;
@@ -92,7 +121,18 @@ void addCandidate(int &ID) {
     } else { string_ID = to_string(ID);}
     candidateID = firstThreeLetterParty + string_ID;
 
-    //TO-DO: save to text file(Albert)
+    //Save candidate’s information into the text file.(Albert)
+    myFile.open("candidate.txt", ios::app); // Open the file in order to append new information to text file.
+    if (myFile.is_open()) //Check whether the file has been opened successfully.
+    {
+        myFile << "Candidate ID: " << candidateID << endl;  // Store the candidate’s information into the text file.
+        myFile << "Candidate Name: " << candidateName << endl;
+        myFile << "Candidate Party: " << candidateParty << endl;
+        myFile << "Candidate Division: " << candidateDivsion << endl;
+        myFile << "Candidate Vote Count: " << candidateVoteCount << endl;
+        myFile << "\n";
+        myFile.close(); //Close the file after finished to append.
+    }
 
     //print out candidate infromation
     cout << "Candidate Information:" << endl;
