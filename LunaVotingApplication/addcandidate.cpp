@@ -143,6 +143,18 @@ void addCandidate(int &ID) {
     cout << "Candidate Vote Count: " << candidateVoteCount << endl;
 }
 
+void display_ID (){
+    fstream myFile;
+
+    myFile.open("candidate.txt", ios::in);
+    string line;
+
+    while (getline(myFile, line)) {
+        cout << line << endl;
+    }
+    myFile.close(); // After finished to read the file, close the file.
+    }
+
 int main()
 {
     int ID = 0;//a variable for candidate ID
@@ -187,7 +199,7 @@ int main()
 
             //View Candidates
         case 2:
-            cout << "TO-DO";
+            display_ID();
             break;
 
             //Exit
