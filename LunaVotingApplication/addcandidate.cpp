@@ -115,10 +115,40 @@ void addCandidate(int &ID) {
     //getting candidate id
     firstThreeLetterParty = candidateParty.substr(0, 3);
     string string_ID;
+    int tempID = 1;
     ID++;
-    if (ID <= 9) {
-        string_ID = "0" + to_string(ID);
-    } else { string_ID = to_string(ID);}
+
+    // Perform validation to check whether the user has entered a same candidate. (Vendy)         
+    string lines; // A variable that stores each line of text of the text file for each loop.
+    //Open and reopen the file to read the file again for a certain time to check whether the candidate id is already exist.
+    for (int counter = 1; counter < 500; counter++)
+    {
+        myFile.open("candidate.txt", ios::in); // Open the text file in order to read the text file.
+        string candidate_id_par = "Candidate ID: " + firstThreeLetterParty;
+        string candidate_id = "Candidate ID: ";
+        while (myFile.is_open()) // Check whether the text file is opened successfully.
+        {
+            while (getline(myFile, lines)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
+            {
+                string lines_cadidate_id = lines.substr(0, 14); // To get the first 14 character in the txt file.
+                if (lines_cadidate_id == candidate_id) // To validate if the line in txt file is Candidate ID: .
+                {
+                    string lines_candidate = lines.substr(0, 17); // get the first 17 character in txt file.
+                    string lines_id = lines.substr(17, 2); // get the last 2 character in txt file which is the ID.
+                    if (lines_candidate == candidate_id_par) {
+                        tempID = stoi(lines_id); // string to int
+                        tempID++;
+                    }
+                }
+            }
+            myFile.close(); // After finished to read the file, close the file.
+        }
+    }
+    // to add 0 before a single digit number
+    if (tempID <= 9) {
+        string_ID = "0" + to_string(tempID);
+    }
+    else { string_ID = to_string(tempID); }
     candidateID = firstThreeLetterParty + string_ID;
 
     //Save candidate’s information into the text file.(Albert)

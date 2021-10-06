@@ -1,0 +1,42 @@
+Candidate ID: Par01
+Candidate Name: 1
+Candidate Party: Party1
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Par02
+Candidate Name: 12
+Candidate Party: Party1
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Par03
+Candidate Name: 3
+Candidate Party: Party1
+Candidate Division: 2
+Candidate Vote Count: 0
+
+Candidate ID: Par04
+Candidate Name: 2
+Candidate Party: Party1
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Par05
+Candidate Name: 51
+Candidate Party: Party1
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Par06
+Candidate Name: 35
+Candidate Party: Party2
+Candidate Division: 3
+Candidate Vote Count: 0
+
+Candidate ID: Par07
+Candidate Name: 31
+Candidate Party: Party1
+Candidate Division: 1
+Candidate Vote Count: 0
+
