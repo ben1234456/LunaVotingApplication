@@ -173,17 +173,19 @@ void addCandidate(int &ID) {
     cout << "Candidate Vote Count: " << candidateVoteCount << endl;
 }
 
-void display_ID (){
+void display_ID ()
+{
     fstream myFile;
 
     myFile.open("candidate.txt", ios::in);
     string line;
 
-    while (getline(myFile, line)) {
+    while (getline(myFile, line)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
+    {
         cout << line << endl;
     }
     myFile.close(); // After finished to read the file, close the file.
-    }
+}
 
 int main()
 {
