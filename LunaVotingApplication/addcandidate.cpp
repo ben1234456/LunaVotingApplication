@@ -200,7 +200,7 @@ void validateName(string &name)
 string createID(string firstThreeLetterParty)
 {
     string lines; // A variable that stores each line of text of the text file for each loop.
-    string party; // A variable to store the party in the text file
+    string party; // A variable to temporarily store the party and id from the text file.
     string stringID; // A variable to store the id as string
     string candidateID; // A variable to store the candidate ID
     int ID = 0; // A variable to store the id as integer
@@ -216,9 +216,9 @@ string createID(string firstThreeLetterParty)
         {
             try 
             {
-                party = lines.substr(14, 3); // To get the first 14 character in the txt file.
+                party = lines.substr(14, 3); // To get the last 3 character in the txt file.
 
-                if (party == firstThreeLetterParty) // To validate if the line in txt file is Candidate ID: .
+                if (party == firstThreeLetterParty) // To validate if the line in text file is the same party
                 {
                     ID++;
                 }
@@ -231,7 +231,7 @@ string createID(string firstThreeLetterParty)
         myFile.close(); // After finished to read the file, close the file.
     }
   
-    // to add 0 before a single digit number
+    // to add 0 before a single digit number.
     if (ID <= 9)
     {
         stringID = "0" + to_string(ID);
@@ -241,7 +241,7 @@ string createID(string firstThreeLetterParty)
         stringID = to_string(ID);
     }
 
-    candidateID = firstThreeLetterParty + stringID;
+    candidateID = firstThreeLetterParty + stringID; // Combining the three letter party and id.
 
     return candidateID;
 }
