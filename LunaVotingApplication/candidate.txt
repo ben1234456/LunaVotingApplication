@@ -1,42 +1,90 @@
-Candidate ID: Par01
-Candidate Name: 1
-Candidate Party: Party1
-Candidate Division: 1
-Candidate Vote Count: 0
-
-Candidate ID: Par02
-Candidate Name: 12
-Candidate Party: Party1
-Candidate Division: 1
-Candidate Vote Count: 0
-
-Candidate ID: Par03
-Candidate Name: 3
-Candidate Party: Party1
-Candidate Division: 2
-Candidate Vote Count: 0
-
-Candidate ID: Par04
-Candidate Name: 2
-Candidate Party: Party1
-Candidate Division: 1
-Candidate Vote Count: 0
-
-Candidate ID: Par05
-Candidate Name: 51
-Candidate Party: Party1
-Candidate Division: 1
-Candidate Vote Count: 0
-
-Candidate ID: Par06
-Candidate Name: 35
-Candidate Party: Party2
+Candidate ID: Tep00
+Candidate Name: eee
+Candidate Party: Tephiscora
 Candidate Division: 3
 Candidate Vote Count: 0
 
-Candidate ID: Par07
-Candidate Name: 31
-Candidate Party: Party1
+Candidate ID: Tep01
+Candidate Name: d
+Candidate Party: Tephiscora
+Candidate Division: 3
+Candidate Vote Count: 0
+
+Candidate ID: Tep02
+Candidate Name: f
+Candidate Party: Tephiscora
 Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep03
+Candidate Name: g
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep04
+Candidate Name: ff
+Candidate Party: Tephiscora
+Candidate Division: 1
+Candidate Vote Count: 0
+
+Candidate ID: Tep14
+Candidate Name: ghghr
+Candidate Party: Tephiscora
+Candidate Division: 3
 Candidate Vote Count: 0
 

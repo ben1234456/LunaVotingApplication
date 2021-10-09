@@ -1,6 +1,6 @@
 // addcandidate.cpp : A Voting Application that allows the user to add and view candidates
-// Created at: 28/7/2021
-// hello world
+// Created at: 27/9/2021
+
 
 #include <string> 
 #include <iostream>
@@ -8,7 +8,71 @@
 
 using namespace std;
 
-void addCandidate(int &ID) {
+void addCandidate(); // a function that prompt the user the enter candidate's infromation 
+void validateName(string&); // a function that check whether the name is duplicated or not
+string createID(string); // a function that will create a unique ID for the candidate
+void saveToFile(string, string, string, int, int); // a function that save the candidate's information to the text file
+void displayCandidates(); // a function that will display all the candidates' details in the text file
+
+
+int main()
+{
+    int selection = 0; //a variable to store the user selection
+
+    cout << "Welcome to Luna Voting Application" << endl;
+    while (selection != 3) 
+    {
+        //print out the menu details
+        cout << "[1] Add Candidate" << endl;
+        cout << "[2] View Candidates" << endl;
+        cout << "[3] Exit" << endl;
+        cout << "Please select one of the numbers:" << endl;
+
+        //get the user input
+        cin >> selection;
+
+        //perform validation, while the selection is not 1, 2, or 3, the program will display an error message again and prompt the user to enter the selection again
+        while (selection != 1 && selection != 2 && selection != 3) {
+            //clear failbit
+            cin.clear();
+
+            // remove characters that are still in the input buffer (until next end of line)
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+            cout << "Invalid number, please enter a valid number (1, 2, or 3)" << endl;
+
+            cin >> selection;
+        }
+
+        //Menu
+        //1 = Add Candidate
+        //2 = View Candidates
+        //3 = Exit
+    
+        switch (selection) {
+            //Add Candidate
+        case 1:
+            addCandidate();
+            break;
+
+            //View Candidates
+        case 2:
+            displayCandidates();
+            break;
+
+            //Exit
+        case 3:
+            cout << "Thanks for using Luna Voting Application! Have a great day!";
+            break;
+
+        default:
+            cout << "Something went wrong! Please Try Again";
+        }
+    }
+
+}
+
+void addCandidate() {
     //All candidate information
     string candidateID = ""; // a variable to store candidate's ID
     string candidateName = ""; // a variable to store candidate's name
@@ -22,46 +86,21 @@ void addCandidate(int &ID) {
 
     //Others
     int counter = 1; // a variable that act as counter
-    string candidateParties[3] = { "Party1", "Party2", "Party3" }; // an array to store the parties
+    string candidateParties[3] = { "Alibaba", "Tephiscora", "Pangojed" }; // an array to store the parties
     string firstThreeLetterParty = ""; // a variable to store the first three letter of the party
+    string candidateFirstName = ""; // a variable to store the first name of the candidate
 
     cout << "You have selected [1] Add Candidate" << endl;
     cout << "Please enter the candidate's information" << endl;
     cout << "Please enter the candidate's name" << endl;
 
-    //get candidate's name
-    cin >> candidateName;
+    // Get candidate's name
+    cin.ignore();
+    getline(cin, candidateName);
 
-    // Create text file (Albert)
-    fstream myFile;
-    myFile.open("candidate.txt", ios::app);
-    if (myFile.is_open())
-    {
-        myFile.close();
-    }
-
-    // Perform validation to check whether the user has entered a same candidate. (Albert)         
-    string newLine = "Candidate Name: " + candidateName; // A variable that stores the string which matches with the format of the line of text in the text file.
-    string line; // A variable that stores each line of text of the text file for each loop.
-    //Open and reopen the file to read the file again for a certain time to check whether the user still enters a repeated candidate's name.
-    for (int counter = 1; counter < 500; counter++)
-    {
-        myFile.open("candidate.txt", ios::in); // Open the text file in order to read the text file.
-        while (myFile.is_open()) // Check whether the text file is opened successfully.
-        {
-            while (getline(myFile, line)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
-            {
-                while (line == newLine) // To search whether the string that contains the input name is the same as any line of text in the text file.
-                {
-                    cout << "Candidate already exists. Please enter a new candidate name" << endl;
-                    cin >> candidateName;
-                    newLine = "Candidate Name: " + candidateName; // Update the string that stored in variable newLine after the user types in different name.
-                }
-            }
-            myFile.close(); // After finished to read the file, close the file.
-        }
-    }
-
+    // Perform name validation
+    validateName(candidateName);
+    
     //print out parties
     cout << "Please enter candidate's party according to the selection below" << endl;
 
@@ -110,49 +149,112 @@ void addCandidate(int &ID) {
     //assign the division to candidate's division
     candidateDivsion = divisionInput;
 
-    //TO-DO: Softcode the id (Vendy)
-    //
-    //getting candidate id
     firstThreeLetterParty = candidateParty.substr(0, 3);
-    string string_ID;
-    int tempID = 1;
-    ID++;
+    
+    //create candidate ID
+    candidateID = createID(firstThreeLetterParty);
 
-    // Perform validation to check whether the user has entered a same candidate. (Vendy)         
-    string lines; // A variable that stores each line of text of the text file for each loop.
-    //Open and reopen the file to read the file again for a certain time to check whether the candidate id is already exist.
-    for (int counter = 1; counter < 500; counter++)
+    //save the candidate information to the text file
+    saveToFile(candidateID, candidateName, candidateParty, candidateDivsion, candidateVoteCount);
+
+    //print out candidate infromation
+    cout << "Candidate Information:" << endl;
+    cout << "Candidate ID: " << candidateID << endl;
+    cout << "Candidate Name: " << candidateName << endl;
+    cout << "Candidate Party: " << candidateParty << endl;
+    cout << "Candidate Division: " << candidateDivsion << endl;
+    cout << "Candidate Vote Count: " << candidateVoteCount << endl;
+
+    cout << endl << "Please enter again" << endl;
+}
+
+//loop through the file and find whether the name is duplicated or not
+void validateName(string &name) 
+{
+    //read the file 
+    ifstream myFile("candidate.txt");
+
+    // Perform validation to check whether the user has entered a same candidate.      
+    string newLine = "Candidate Name: " + name; // A variable that stores the string which matches with the format of the line of text in the text file.
+    string line; // A variable that stores each line of text of the text file for each loop.
+
+    // Read the file to perform name validation
+    if (myFile.is_open())
     {
-        myFile.open("candidate.txt", ios::in); // Open the text file in order to read the text file.
-        string candidate_id_par = "Candidate ID: " + firstThreeLetterParty;
-        string candidate_id = "Candidate ID: ";
-        while (myFile.is_open()) // Check whether the text file is opened successfully.
+        while (getline(myFile, line)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
         {
-            while (getline(myFile, lines)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
+            while (line == newLine) // To search whether the string that contains the input name is the same as any line of text in the text file.
             {
-                string lines_cadidate_id = lines.substr(0, 14); // To get the first 14 character in the txt file.
-                if (lines_cadidate_id == candidate_id) // To validate if the line in txt file is Candidate ID: .
+                cout << "Candidate already exists. Please enter a new candidate name" << endl;
+                cin >> name;
+                newLine = "Candidate Name: " + name; // Update the string that stored in variable newLine after the user types in different name.
+            }
+        }
+
+        myFile.close(); // After finished to read the file, close the file.
+    }
+
+}
+
+//create the unique id for the candidate
+string createID(string firstThreeLetterParty)
+{
+    string lines; // A variable that stores each line of text of the text file for each loop.
+    string party; // A variable to store the party in the text file
+    string stringID; // A variable to store the id as string
+    string candidateID; // A variable to store the candidate ID
+    int ID = 0; // A variable to store the id as integer
+
+    // Create and open text file
+    ifstream myFile;
+
+    myFile.open("candidate.txt", ios::in); // Open the text file in order to read the text file.
+
+    if (myFile.is_open()) // Check whether the text file is opened successfully.
+    {
+        while (getline(myFile, lines)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
+        {
+            try 
+            {
+                party = lines.substr(14, 3); // To get the first 14 character in the txt file.
+
+                if (party == firstThreeLetterParty) // To validate if the line in txt file is Candidate ID: .
                 {
-                    string lines_candidate = lines.substr(0, 17); // get the first 17 character in txt file.
-                    string lines_id = lines.substr(17, 2); // get the last 2 character in txt file which is the ID.
-                    if (lines_candidate == candidate_id_par) {
-                        tempID = stoi(lines_id); // string to int
-                        tempID++;
-                    }
+                    ID++;
                 }
             }
-            myFile.close(); // After finished to read the file, close the file.
-        }
-    }
-    // to add 0 before a single digit number
-    if (tempID <= 9) {
-        string_ID = "0" + to_string(tempID);
-    }
-    else { string_ID = to_string(tempID); }
-    candidateID = firstThreeLetterParty + string_ID;
+            catch (...) {
+                // out of range
+            }            
+        }  
 
-    //Save candidate’s information into the text file.(Albert)
+        myFile.close(); // After finished to read the file, close the file.
+    }
+  
+    // to add 0 before a single digit number
+    if (ID <= 9)
+    {
+        stringID = "0" + to_string(ID);
+    }
+    else 
+    { 
+        stringID = to_string(ID);
+    }
+
+    candidateID = firstThreeLetterParty + stringID;
+
+    return candidateID;
+}
+
+//save the candidate's information to the text file
+void saveToFile(string candidateID, string candidateName, string candidateParty, int candidateDivsion, int candidateVoteCount)
+{
+    // Create and open text file
+    ofstream myFile;
+
+    //Save candidate’s information into the text file.
     myFile.open("candidate.txt", ios::app); // Open the file in order to append new information to text file.
+
     if (myFile.is_open()) //Check whether the file has been opened successfully.
     {
         myFile << "Candidate ID: " << candidateID << endl;  // Store the candidate’s information into the text file.
@@ -164,16 +266,14 @@ void addCandidate(int &ID) {
         myFile.close(); //Close the file after finished to append.
     }
 
-    //print out candidate infromation
-    cout << "Candidate Information:" << endl;
-    cout << "Candidate ID: " << candidateID << endl;
-    cout << "Candidate Name: " << candidateName << endl;
-    cout << "Candidate Party: " << candidateParty << endl;
-    cout << "Candidate Division: " << candidateDivsion << endl;
-    cout << "Candidate Vote Count: " << candidateVoteCount << endl;
+    else
+    {
+        cout << "Something is wrong with the file!" << endl;
+    }
 }
 
-void display_ID ()
+//read from text file and print out all the candidates' information
+void displayCandidates()
 {
     fstream myFile;
 
@@ -185,65 +285,8 @@ void display_ID ()
         cout << line << endl;
     }
     myFile.close(); // After finished to read the file, close the file.
-}
 
-int main()
-{
-    int ID = 0;//a variable for candidate ID
-    int selection = 0; //a variable to store the user selection
-    cout << "Welcome to Luna Voting Application" << endl;
-    while (selection != 3) {
-        //print out the menu details
-        if (ID != 0) {
-            cout << endl << "Please enter again" << endl;
-        }
-        cout << "[1] Add Candidate" << endl;
-        cout << "[2] View Candidates" << endl;
-        cout << "[3] Exit" << endl;
-        cout << "Please select one of the numbers:" << endl;
-
-        //get the user input
-        cin >> selection;
-
-        //perform validation, while the selection is not 1, 2, or 3, the program will display an error message again and prompt the user to enter the selection again
-        while (selection != 1 && selection != 2 && selection != 3) {
-            //clear failbit
-            cin.clear();
-
-            // remove characters that are still in the input buffer (until next end of line)
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-            cout << "Invalid number, please enter a valid number (1, 2, or 3)" << endl;
-
-            cin >> selection;
-        }
-
-        //Menu
-        //1 = Add Candidate
-        //2 = View Candidates
-        //3 = Exit
-    
-        switch (selection) {
-            //Add Candidate
-        case 1:
-            addCandidate(ID);
-            break;
-
-            //View Candidates
-        case 2:
-            display_ID();
-            break;
-
-            //Exit
-        case 3:
-            cout << "Thanks for using Luna Voting Application! Have a great day!";
-            break;
-
-        default:
-            cout << "Something went wrong! Please Try Again";
-        }
-    }
-
+    cout << endl << "Please enter again" << endl;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
