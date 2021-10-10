@@ -172,7 +172,11 @@ void addCandidate() {
 //loop through the file and find whether the name is duplicated or not
 void validateName(string &inputName) 
 {
-     
+    //create the file
+    ofstream myfile;
+    myfile.open("candidate.txt");
+    myfile.close();
+
     ifstream myFile("candidate.txt"); //read the file
   
     string line; // A variable that stores each line of text of the text file for each loop.
@@ -196,30 +200,33 @@ void validateName(string &inputName)
     }
 
     // Perform validation
-
-    lastNameInVector = candidateNameVec.back(); //get the last name in the vector
-
-    while (loop)
+    if (candidateNameVec.size() != 0)
     {
-        for (string name : candidateNameVec)
+        lastNameInVector = candidateNameVec.back(); //get the last name in the vector
+
+        while (loop)
         {
-            //if name is duplicated
-            if (inputName == name)
+            for (string name : candidateNameVec)
             {
-                cout << "Candidate already exists. Please enter a new candidate name" << endl;
-                 
-                getline(cin, inputName); // Get candidate's name
+                //if name is duplicated
+                if (inputName == name)
+                {
+                    cout << "Candidate already exists. Please enter a new candidate name" << endl;
 
-                break; //break the loop so that it will read from the beginning again
-            }
+                    getline(cin, inputName); // Get candidate's name
 
-            //if name is not in the vector, break the loop 
-            else if (name == lastNameInVector && inputName != name)
-            {
-                loop = false;
+                    break; //break the loop so that it will read from the beginning again
+                }
+
+                //if name is not in the vector, break the loop 
+                else if (name == lastNameInVector && inputName != name)
+                {
+                    loop = false;
+                }
             }
         }
     }
+    
     
 }
 
