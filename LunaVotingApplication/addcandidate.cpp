@@ -200,6 +200,8 @@ void validateName(string &inputName)
     }
 
     // Perform validation
+
+    //if the file is empty, there is no need to perform validation
     if (candidateNameVec.size() != 0)
     {
         lastNameInVector = candidateNameVec.back(); //get the last name in the vector
