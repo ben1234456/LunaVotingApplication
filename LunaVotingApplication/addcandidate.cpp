@@ -172,11 +172,6 @@ void addCandidate() {
 //loop through the file and find whether the name is duplicated or not
 void validateName(string &inputName) 
 {
-    //create the file
-    ofstream myfile;
-    myfile.open("candidate.txt");
-    myfile.close();
-
     ifstream myFile("candidate.txt"); //read the file
   
     string line; // A variable that stores each line of text of the text file for each loop.
@@ -285,6 +280,8 @@ string createID(string firstThreeLetterParty)
 //save the candidate's information to the text file
 void saveToFile(string candidateID, string candidateName, string candidateParty, int candidateDivsion, int candidateVoteCount)
 {
+    cout << "hi";
+
     // Create and open text file
     ofstream myFile;
 

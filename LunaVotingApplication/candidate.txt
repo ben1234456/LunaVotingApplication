@@ -1,6 +1,12 @@
-Candidate ID: Ali00
-Candidate Name: Albert
-Candidate Party: Alibaba
+Candidate ID: Pan00
+Candidate Name: eee
+Candidate Party: Pangojed
 Candidate Division: 2
+Candidate Vote Count: 0
+
+Candidate ID: Tep00
+Candidate Name: 3
+Candidate Party: Tephiscora
+Candidate Division: 3
 Candidate Vote Count: 0
 
