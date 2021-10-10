@@ -196,13 +196,13 @@ void validateName(string &inputName)
     }
 
     // Perform validation
-    lastNameInVector = candidateNameVec.back();
+
+    lastNameInVector = candidateNameVec.back(); //get the last name in the vector
 
     while (loop)
     {
         for (string name : candidateNameVec)
         {
-            cout << name << endl;
             //if name is duplicated
             if (inputName == name)
             {
