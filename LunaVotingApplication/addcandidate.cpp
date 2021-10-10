@@ -5,6 +5,7 @@
 #include <string> 
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 using namespace std;
 
@@ -169,31 +170,57 @@ void addCandidate() {
 }
 
 //loop through the file and find whether the name is duplicated or not
-void validateName(string &name) 
+void validateName(string &inputName) 
 {
-    //read the file 
-    ifstream myFile("candidate.txt");
-
-    // Perform validation to check whether the user has entered a same candidate.      
-    string newLine = "Candidate Name: " + name; // A variable that stores the string which matches with the format of the line of text in the text file.
+     
+    ifstream myFile("candidate.txt"); //read the file
+  
     string line; // A variable that stores each line of text of the text file for each loop.
+    bool loop = true; // A variable to determine the loop should be continue or not
+    string lastNameInVector = ""; //A variable to store the last name in the vector (for comparision)
 
+    vector<string> candidateNameVec; // a vector to store the candidate names
+ 
     // Read the file to perform name validation
     if (myFile.is_open())
     {
         while (getline(myFile, line)) // Use a while loop to access every single line of text of the text file and store the text into the string variable called line.
         {
-            while (line == newLine) // To search whether the string that contains the input name is the same as any line of text in the text file.
+            if (line.substr(0, 15)  == "Candidate Name:") // Get the candidate name row
             {
-                cout << "Candidate already exists. Please enter a new candidate name" << endl;
-                cin >> name;
-                newLine = "Candidate Name: " + name; // Update the string that stored in variable newLine after the user types in different name.
+                candidateNameVec.push_back(line.substr(16)); //Push the name to the vector
             }
         }
 
         myFile.close(); // After finished to read the file, close the file.
     }
 
+    // Perform validation
+    lastNameInVector = candidateNameVec.back();
+
+    while (loop)
+    {
+        for (string name : candidateNameVec)
+        {
+            cout << name << endl;
+            //if name is duplicated
+            if (inputName == name)
+            {
+                cout << "Candidate already exists. Please enter a new candidate name" << endl;
+                 
+                getline(cin, inputName); // Get candidate's name
+
+                break; //break the loop so that it will read from the beginning again
+            }
+
+            //if name is not in the vector, break the loop 
+            else if (name == lastNameInVector && inputName != name)
+            {
+                loop = false;
+            }
+        }
+    }
+    
 }
 
 //create the unique id for the candidate
